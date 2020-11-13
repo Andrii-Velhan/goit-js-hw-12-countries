@@ -18,3 +18,22 @@ body {
    */
   background-image: url('./images/bg-pattern.png');
 }
+
+.country-name {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+}
+
+.country-info {
+  margin-right: 20px;
+}
+
+.flag-img-right {
+  margin-top: auto;
+  margin-left: auto;
+}

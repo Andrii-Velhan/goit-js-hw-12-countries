@@ -1,27 +1,38 @@
 import './styles.css';
 import countryCardTpl from './templates/country-card.hbs'
-console.log(countryCardTpl);
-import fetchCountries from './js/fetchCountries';
+//import fetchCountries from './js/fetchCountries';
 
 //fetchCountries(ukraine);
 const refs = {
-    cardContainer: document.querySelector('.js-card-container')
-    // BtnSwitch = document.querySelector('input.js-switch-input')
+    cardContainer: document.querySelector('.js-card-container'),
+    searchInput: document.querySelector('input#inputName'),
+};
+
+refs.searchInput.addEventListener('input', onSearch)
+
+function onSearch (e) {
+    e.preventDefault();
+
+    const input = e.target;
+    const searchQuery = input.value;
+    // const input = e.target;
+    // const searchQuery = input.value;
+    console.log(searchQuery);
+
+    fetchCountries(searchQuery)
+    .then(renderCountryCard)
+    .catch(error => console.log(error))
+    .finally(() => input.reset())
 }
 
+function fetchCountries(searchQuery) {
+    return fetch(`https://restcountries.eu/rest/v2/name/${searchQuery}`).then(
+        response => {
+            return response.json();
+    });  
+}
 
-
-fetch('https://restcountries.eu/rest/v2/name/canad')
-    .then(response => {
-        ///console.log(response.json());
-        return response.json();
-    })
-    .then(searchQuery => {
-        console.log(searchQuery);
-        const markUp = countryCardTpl(searchQuery);
-        console.log(markUp);
+function renderCountryCard(country) {
+        const markUp = countryCardTpl(country);        
         refs.cardContainer.innerHTML = markUp;
-    })
-    .catch(error => {
-        console.log(error);
-    });
+}
