@@ -11,7 +11,6 @@ const debounce = require('lodash.debounce');
 const refs = getRefs();
 
 refs.searchInput.addEventListener('input', debounce(onSearch, 500))
-refs.searchInput.addEventListener('input', clearPnotify())
 
 function onSearch (e) {
     e.preventDefault();
@@ -39,7 +38,7 @@ function renderCountryCard(country) {
         return error({
             text: 'The country for your request was not found. Please try again',
             type: 'info',
-            delay: 12500           
+            delay: 2500           
         });        
     }
     if (country.length > 10) {
@@ -48,7 +47,7 @@ function renderCountryCard(country) {
         return error({
             text: `Many countries found, please make your request more specific !!!`,
             type: 'info',
-            delay: 12500           
+            delay: 2500           
         });
         
     }
@@ -69,7 +68,5 @@ function clearResult() {
     refs.cardContainer.innerHTML = "";
 }
 
-function clearPnotify() {
-    refs.pnotifyContainer.innerHTML = "";
-}
+
 
